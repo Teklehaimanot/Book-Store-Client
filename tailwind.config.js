@@ -9,7 +9,7 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
-      primary: "#87C767",
+      primary: "#131921",
       secondary: "#fff",
       error: "#EA526F",
       transparent: "transparent",
