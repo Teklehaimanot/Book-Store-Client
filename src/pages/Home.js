@@ -7,7 +7,7 @@ const Home = () => {
     <div className="flex flex-col space-y-2 h-screen">
       <Header />
       <Banner />
-      <div className="flex flex-row justify-normal ml-16 w-full h-2/3 flex-wrap">
+      <div className="flex flex-row justify-normal  w-full h-2/3 flex-wrap">
         <div className="w-1/6 shadow-lg rounded-sm  h-2/3 mx-3 flex flex-col items-start border border-primary scale-[.8]">
           <div
             className="bg-cover w-2/3 h-2/3 bg-secondary m-auto border"
