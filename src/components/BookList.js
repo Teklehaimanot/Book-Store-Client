@@ -26,7 +26,7 @@ const BookList = ({ title }) => {
   return (
     <div className="flex flex-row justify-normal  w-full h-2/3 flex-wrap">
       {books?.map((item) => (
-        <BookItem key={item.id} />
+        <BookItem key={item.id} book={item} />
       ))}
     </div>
   );
