@@ -19,13 +19,13 @@ const Header = ({ setTitle }) => {
           <input
             className=" p-1 mx-4 my-6 rounded-sm w-3/4 shadow border text-primary"
             type="text"
-            placeholder="Search book by title"
+            placeholder="Search books by title"
             onChange={(e) => setSearch(e.target.value)}
             value={search}
           />
           <button
             type="submit"
-            className="border p-2 bg-secondary text-primary rounded"
+            className="border p-2 bg-secondary text-primary rounded hover:bg-green"
           >
             <FaSearch />
           </button>

@@ -1,9 +1,8 @@
 import React from "react";
 
 const BookItem = ({ book }) => {
-  console.log(book);
   return (
-    <div className=" w-1/2 md:w-1/6 shadow-lg rounded-sm  h-2/3  flex flex-col items-start border border-primary scale-[.8]">
+    <div className=" w-1/2 md:w-1/3 lg:w-1/6 shadow-lg rounded-sm  h-2/3  flex flex-col items-start border border-primary scale-[.8]">
       <div
         className="bg-cover w-2/3 h-2/3 bg-secondary m-auto border"
         style={{
