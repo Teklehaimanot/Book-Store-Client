@@ -5,7 +5,6 @@ import BookList from "../components/BookList";
 
 const Home = () => {
   const [title, setTitle] = useState("");
-
   return (
     <div className="flex flex-col space-y-2 h-screen">
       <Header setTitle={setTitle} />
