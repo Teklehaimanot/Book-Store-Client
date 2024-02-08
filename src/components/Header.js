@@ -1,11 +1,10 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { FaCartShopping } from "react-icons/fa6";
 const Header = () => {
   return (
-    <div className="flex flex-row justify-between bg-primary text-secondary items-center border-b border-black shadow-md ">
+    <div className="flex flex-col md:flex-row justify-between bg-primary text-secondary  border-b border-black shadow-md ">
       <div className="text-xl p-5">MY-BOOK-STORE</div>
-      <div className="w-1/3 flex justify-start items-center">
+      <div className="md:w-1/3 w-full flex justify-start items-center">
         <form className="flex flex-row w-full  items-center">
           <input
             className=" p-1 mx-4 my-6 rounded-sm w-3/4 shadow border"
@@ -16,9 +15,6 @@ const Header = () => {
             <FaSearch />
           </div>
         </form>
-      </div>
-      <div className="border bg-secondary text-primary rounded p-2 mr-5">
-        <FaCartShopping />
       </div>
     </div>
   );
