@@ -1,45 +1,55 @@
-import React, { useEffect, useState } from "react";
-import BookItem from "./BookItem";
+import React, { useEffect } from "react";
+import { useInfiniteQuery } from "react-query";
 import axios from "axios";
 import Loading from "./Loading";
+import BookItem from "./BookItem";
 
 const BookList = ({ title }) => {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [nextPage, setNextPage] = useState(null);
-  const basicUrl = process.env.REACT_APP_BACKEND_URL;
-  const limit = 12;
+  const fetchBooks = async ({ pageParam = 1, queryParam = "" }) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/books/?page=${pageParam}&title=${queryParam}&limit=20`
+    );
+    return response.data;
+  };
+
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery(
+      ["books", title],
+      ({ pageParam }) => fetchBooks({ pageParam, queryParam: title }),
+      {
+        getNextPageParam: (lastPage) => lastPage.nextPage,
+      }
+    );
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const url = `${basicUrl}/books?page=${page}&limit=${limit}&title=${title}`;
-      const response = await axios.get(url);
-      console.log(response.data.nextPage);
-      setBooks(response.data.books);
-      setNextPage(response.data.nextPage);
-      //   setBooks((prevBooks) => [...prevBooks, ...response.data.books]);
-      setIsLoading(false);
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+          document.documentElement.scrollHeight &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
+      }
     };
 
-    fetchData();
-  }, [page, title]);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (isLoading) {
-    return (
-      <div className="w-1/3 m-auto flex flex-col space-y-5 h-2/3 justify-center  bg-transparent">
-        <div className=" p-10 m-auto text-2xl">
-          <Loading />
-        </div>
-      </div>
-    );
-  }
+  if (isLoading && !data) return <Loading />;
   return (
-    <div className="flex flex-row justify-normal  w-full h-2/3 flex-wrap">
-      {books?.map((item) => (
-        <BookItem key={item.id} book={item} />
+    <div className="flex flex-row justify-normal w-full h-2/3 flex-wrap">
+      {data.pages.map((page, pageIndex) => (
+        <React.Fragment key={pageIndex}>
+          {page.books.map((book) => (
+            <BookItem key={book.id} book={book} />
+          ))}
+        </React.Fragment>
       ))}
+      {isFetchingNextPage && <Loading />}
     </div>
   );
 };

@@ -6,13 +6,13 @@ const BookItem = ({ book }) => {
       <div
         className="bg-cover w-2/3 h-2/3 bg-secondary m-auto border"
         style={{
-          backgroundImage: `url("https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg")`,
+          backgroundImage: `url(${book.cover_image})`,
         }}
       ></div>
       <div className="mx-5">{book.title}</div>
       <div className="mx-5">{book.writer}</div>
       <div className="mx-5">{book.point}</div>
-      <div className="mx-5">{book.tags.join(",")}</div>
+      <div className="mx-5">{book.tags?.join(",")}</div>
     </div>
   );
 };
